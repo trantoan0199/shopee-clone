@@ -86,12 +86,12 @@ export const schema = yup.object({
     .min(6, 'Độ dài từ 6 - 160 ký tự')
     .max(160, 'Độ dài từ 6 - 160 ký tự'),
   confirm_password: handleConfirmPasswordYup('password'),
-  price_min: yup.string().test({
+  price_min: yup.string().default('').test({
     name: 'price-not-allowed',
     message: 'Giá không phù hợp',
     test: testPriceMinMax
   }),
-  price_max: yup.string().test({
+  price_max: yup.string().default('').test({
     name: 'price-not-allowed',
     message: 'Giá không phù hợp',
     test: testPriceMinMax

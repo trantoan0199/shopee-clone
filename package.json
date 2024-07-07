@@ -1,6 +1,7 @@
 {
   "name": "shopeeclone",
   "private": true,
+  "homepage": "https://trantoan0199.github.io/shopee-clone/",
   "version": "0.0.0",
   "type": "module",
   "scripts": {
@@ -10,7 +11,9 @@
     "preview": "vite preview",
     "lint:fix": "eslint --fix --ext ts,tsx src/",
     "prettier": "prettier --check \"src/**/(*.tsx|*.ts|*.css|*.scss)\"",
-    "prettier:fix": "prettier --write \"src/**/(*.tsx|*.ts|*.css|*.scss)\""
+    "prettier:fix": "prettier --write \"src/**/(*.tsx|*.ts|*.css|*.scss)\"",
+    "predeploy": "npm run build",
+    "deploy": "gh-pages -d build"
   },
   "dependencies": {
     "@floating-ui/react": "^0.26.17",
@@ -22,6 +25,7 @@
     "classnames": "^2.5.1",
     "dompurify": "^3.1.5",
     "framer-motion": "^11.2.10",
+    "gh-pages": "^6.1.1",
     "html-to-text": "^9.0.5",
     "i18next": "^23.11.5",
     "immer": "^10.1.1",
