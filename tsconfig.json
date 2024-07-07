@@ -25,6 +25,6 @@
     "allowSyntheticDefaultImports": true,
     "forceConsistentCasingInFileNames": true
   },
-  "include": ["src", "./jest-setup.ts", "vitest.setup.js"],
+  "include": ["src"],
   "references": [{ "path": "./tsconfig.node.json" }]
 }
