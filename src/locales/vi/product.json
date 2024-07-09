@@ -1,3 +1,45 @@
 {
-  "available": "Sản phẩm có sẵn"
+  "header": {
+    "account": "Tài khoản của tôi",
+    "order": "Đơn mua",
+    "log out": "Đăng xuất",
+    "log in": "Đăng nhập",
+    "register": "Đắng ký",
+    "search": "Free Ship Đơn từ 0Đ",
+    "cart": "Giỏ hàng",
+    "inCart": "Vào giỏ hàng",
+    "viewCart": "Xem giỏ hàng",
+    "no product": "Chưa có sản phẩm",
+    "purchaseInCart": "Thêm vào giỏ hàng",
+    "product new add": "Sản phẩm mới thêm"
+  },
+  "aside filter": {
+    "all categories": "Tất cả danh mục",
+    "filter search": "Bộ lọc tìm kiếm",
+    "range": "Khoảng giá",
+    "price min": "₫ TỪ",
+    "price max": "₫ ĐẾN",
+    "above": "Trở lên",
+    "apply": "Áp dụng",
+    "delete": "Xoá tất cả"
+  },
+  "user side": {
+    "change profile": "Sửa hồ sơ",
+    "account": "Tài khoản của tôi",
+    "change password": "Đổi mật khẩu",
+    "order": "Đơn mua"
+  },
+  "sort product": {
+    "sortBy": "Sắp xếp theo",
+    "popular": "Phổ biến",
+    "newest": "Mới nhất",
+    "bestSelling": "Bán chạy",
+    "price": "Giá",
+    "asc": "Giá: Thấp đến cao",
+    "desc": "Giá: Cao đến thấp"
+  },
+  "input": {
+    "message": "Dung lượng file tối đa 1 MB. Định dạng:.JPEG, .PNG",
+    "choice": "Chọn ảnh"
+  }
 }

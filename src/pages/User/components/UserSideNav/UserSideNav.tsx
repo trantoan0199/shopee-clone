@@ -1,5 +1,6 @@
 import classNames from 'classnames'
 import * as React from 'react'
+import { useTranslation } from 'react-i18next'
 import { NavLink } from 'react-router-dom'
 import { Link } from 'react-router-dom'
 import path from 'src/constants/path'
@@ -8,6 +9,7 @@ import { getAvatarUrl } from 'src/utils/utils'
 
 export default function UserSideNav() {
   const { profile } = React.useContext(AppContext)
+  const {t} =useTranslation('product')
   return (
     <div>
       <div className='flex items-center border-b border-b-gray-200 py-4'>
@@ -31,7 +33,7 @@ export default function UserSideNav() {
                 d='m16.862 4.487 1.687-1.688a1.875 1.875 0 1 1 2.652 2.652L6.832 19.82a4.5 4.5 0 0 1-1.897 1.13l-2.685.8.8-2.685a4.5 4.5 0 0 1 1.13-1.897L16.863 4.487Zm0 0L19.5 7.125'
               />
             </svg>
-            Sửa hồ sơ
+            {t('user side.change profile')}
           </Link>
         </div>
       </div>
@@ -52,7 +54,7 @@ export default function UserSideNav() {
               alt=''
             />
           </div>
-          Tài khoản của tôi
+          {t('user side.account')}
         </NavLink>
         <NavLink
           to={path.changePassword}
@@ -70,7 +72,7 @@ export default function UserSideNav() {
               alt=''
             />
           </div>
-          Đổi mật khẩu
+          {t('user side.change password')}
         </NavLink>
         <NavLink
           to={path.historyPurchase}
@@ -87,7 +89,7 @@ export default function UserSideNav() {
               src='https://down-vn.img.susercontent.com/file/f0049e9df4e536bc3e7f140d071e9078'
             />
           </div>
-          Đơn mua
+          {t('user side.order')}
         </NavLink>
       </div>
     </div>

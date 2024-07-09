@@ -1,6 +1,7 @@
 import { useQuery } from '@tanstack/react-query'
 import classNames from 'classnames'
 import * as React from 'react'
+import { useTranslation } from 'react-i18next'
 import { createSearchParams, Link } from 'react-router-dom'
 import purchaseApi from 'src/apis/purchase.api'
 import path from 'src/constants/path'
@@ -9,42 +10,56 @@ import useQueryParams from 'src/hooks/useQueryParams'
 import { PurchaseStatus } from 'src/types/purchase.type'
 import { formatCurrency, generateNameId } from 'src/utils/utils'
 
+enum PurchaseStatusKeys {
+  all = 'all',
+  waitForConfirmation = 'waitForConfirmation',
+  waitForGetting = 'waitForGetting',
+  inProgress = 'inProgress',
+  delivered = 'delivered',
+  cancelled = 'cancelled'
+}
+
 const purchaseTabs = [
   {
     status: purchasesStatus.all,
-    name: 'Tất cả'
+    name: PurchaseStatusKeys.all
   },
   {
     status: purchasesStatus.waitForConfirmation,
-    name: 'Chờ xác nhận'
+    name: PurchaseStatusKeys.waitForConfirmation
   },
   {
     status: purchasesStatus.waitForGetting,
-    name: 'Chờ lấy hàng'
+    name: PurchaseStatusKeys.waitForGetting
   },
   {
     status: purchasesStatus.inProgress,
-    name: 'Đang giao'
+    name: PurchaseStatusKeys.inProgress
   },
   {
     status: purchasesStatus.delivered,
-    name: 'Đã giao'
+    name: PurchaseStatusKeys.delivered
   },
   {
     status: purchasesStatus.cancelled,
-    name: 'Đã huỷ'
+    name: PurchaseStatusKeys.cancelled
   }
 ]
 export default function HistoryPurchase() {
   const queryParams: { status?: string } = useQueryParams()
+  const { t } = useTranslation('home')
   const status: number = Number(queryParams.status) || purchasesStatus.all
   const { data: purchaseInCartData } = useQuery({
     queryKey: ['purchase', status],
     queryFn: () => purchaseApi.getPurchases({ status: status as PurchaseStatus })
   })
   const purchasesInCart = purchaseInCartData?.data.data
+  const translatedPurchaseTabs = purchaseTabs.map((tab) => ({
+    ...tab,
+    name: t(`history.${tab.name}`)
+  }))
 
-  const purchaseTabsLink = purchaseTabs.map((tab) => (
+  const purchaseTabsLink = translatedPurchaseTabs.map((tab) => (
     <Link
       key={tab.status}
       to={{
@@ -89,7 +104,7 @@ export default function HistoryPurchase() {
                 </Link>
                 <div className='flex justify-end'>
                   <div>
-                    <span>Tổng giá tiền</span>
+                    <span>{t('history.total')}</span>
                     <span className='ml-4 text-xl text-orange'>
                       ₫{formatCurrency(purchase.product.price * purchase.buy_count)}
                     </span>

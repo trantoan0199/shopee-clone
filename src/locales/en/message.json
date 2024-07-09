@@ -1,0 +1,17 @@
+{
+  "account": {
+    "required": "{{name}} is required",
+    "email": "Email is not valid",
+    "min_length": "Length must be between {{min}} - {{max}} characters",
+    "max_length": "Length must be between {{min}} - {{max}} characters",
+    "price": "Price is not valid",
+    "confirm_password": {
+      "required": "Re-entering password is required",
+      "confirm": "Passwords do not match"
+    }
+  },
+  "user": {
+    "max_length": "Maximum length is {{max}} characters",
+    "date_of_birth": "Please select a date in the past"
+  }
+}

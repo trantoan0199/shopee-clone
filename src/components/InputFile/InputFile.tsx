@@ -1,4 +1,5 @@
 import * as React from 'react'
+import { useTranslation } from 'react-i18next'
 import { toast } from 'react-toastify'
 import config from 'src/constants/config'
 
@@ -9,6 +10,8 @@ interface Props {
 export default function InputFile({ onChange }: Props) {
   const fileInputRef = React.useRef<HTMLInputElement>(null)
 
+  const { t } = useTranslation('product')
+
   const handleUploadFile = () => {
     fileInputRef.current?.click()
   }
@@ -16,7 +19,7 @@ export default function InputFile({ onChange }: Props) {
   const handleChangeFile = (event: React.ChangeEvent<HTMLInputElement>) => {
     const fileFormLocal = event.target.files?.[0]
     if (fileFormLocal && (fileFormLocal.size >= config.maxSizeUploadAvatar || !fileFormLocal.type.includes('image'))) {
-      toast.error('Dung lượng file tối đa 1 MB. Định dạng:.JPEG, .PNG', {
+      toast.error(t('input.message'), {
         position: 'top-center',
         autoClose: 1000
       })
@@ -41,7 +44,7 @@ export default function InputFile({ onChange }: Props) {
         onClick={handleUploadFile}
         className='flex h-10 item-center justify-center text-center py-2 rounded-sm border bg-white px-6 text-sm text-gray-600 shadow-sm'
       >
-        Chọn ảnh
+        {t('input.choice')}
       </button>
     </React.Fragment>
   )

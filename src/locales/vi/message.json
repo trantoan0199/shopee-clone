@@ -1,0 +1,17 @@
+{
+  "account": {
+    "required": "{{name}} là bắt buộc",
+    "email": "Email không đúng định dạng",
+    "min_length": "Độ dài từ {{min}} - {{max}} ký tự",
+    "max_length": "Độ dài từ {{min}} - {{max}} ký tự",
+    "price": "Giá không phù hợp",
+    "confirm_password": {
+      "required": "Nhập lại password là bắt buộc",
+      "confirm": "Nhập lại password không khớp"
+    }
+  },
+  "user": {
+    "max_length": "Độ dài tối đa là {{max}} ký tự",
+    "date_of_birth": "Hãy chọn một ngày trong quá khứ"
+  }
+}

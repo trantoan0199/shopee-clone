@@ -1,3 +1,45 @@
 {
-  "available": "Available products"
+  "header": {
+    "account": "My Account",
+    "order": "My Orders",
+    "log out": "Log Out",
+    "log in": "Log In",
+    "register": "Register",
+    "search": "Free Shipping on Orders over 0Đ",
+    "cart": "Shopping Cart",
+    "inCart": "In Cart",
+    "viewCart": "View Cart",
+    "no product": "No products yet",
+    "purchaseInCart": "Add to Cart",
+    "product new add": "Newly Added Product"
+  },
+  "aside filter": {
+    "all categories": "All Categories",
+    "filter search": "Filter Search",
+    "range": "Price Range",
+    "price min": "₫ From",
+    "price max": "₫ To",
+    "above": "Above",
+    "apply": "Apply",
+    "delete": "Clear All"
+  },
+  "user side": {
+    "change profile": "Edit Profile",
+    "account": "My Account",
+    "change password": "Change Password",
+    "order": "My Orders"
+  },
+  "sort product": {
+    "sortBy": "Sort By",
+    "popular": "Popular",
+    "newest": "Newest",
+    "bestSelling": "Best Selling",
+    "price": "Price",
+    "asc": "Price: Low to High",
+    "desc": "Price: High to Low"
+  },
+  "input": {
+    "message": "Maximum file size 1 MB. Formats: .JPEG, .PNG",
+    "choice": "Choose Image"
+  }
 }

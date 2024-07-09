@@ -1,10 +1,12 @@
 import * as React from 'react'
+import { useTranslation } from 'react-i18next'
 import { Link } from 'react-router-dom'
 import path from 'src/constants/path'
 import useSearchProducts from 'src/hooks/useSearchProducts'
 import NavHeader from '../NavHeader'
 
 export default function CartHeader() {
+  const {t}= useTranslation('product')
   const { onSubmitSearch, register } = useSearchProducts()
   return (
     <div className='border-b border-b-black/10'>
@@ -25,13 +27,13 @@ export default function CartHeader() {
                 </svg>
               </div>
               <div className='mx-4 h-6 md:h-8 w-[1px] bg-orange' />
-              <div className='capitalize text-orange md:text-2xl'>Giỏ hàng</div>
+              <div className='capitalize text-orange md:text-2xl'>{t('header.cart')}</div>
             </Link>
             <form className='mt-3 md:mt-0 md:w-[50%]' onSubmit={onSubmitSearch}>
               <div className='border-2 border-orange rounded-sm flex'>
                 <input
                   type='text'
-                  placeholder='Free Ship Đơn từ 0Đ'
+                  placeholder={t('header.search')}
                   className='w-full flex-grow border-none bg-transparent px-3 py-1 text-black outline-none'
                   {...register('name')}
                 />

@@ -13,18 +13,29 @@ import { AppContext } from 'src/contexts/auth.context'
 import Button from 'src/components/Button'
 import path from 'src/constants/path'
 import { Helmet } from 'react-helmet-async'
+import { useTranslation } from 'react-i18next'
+import * as yup from 'yup';
 
 type FormData = Pick<Schema, 'email' | 'password' | 'confirm_password'>
-const registerSchema = schema.pick(['email', 'password', 'confirm_password'])
+// const registerSchema = schema.pick(['email', 'password', 'confirm_password'])
+const registerSchema = (t: ReturnType<typeof useTranslation>['t']) =>
+  yup.object().shape({
+    email: schema(t).fields.email as yup.StringSchema<string>,
+    password: schema(t).fields.password as yup.StringSchema<string>,
+    confirm_password: schema(t).fields.confirm_password as yup.StringSchema<string>,
+  });
 
 export default function Register() {
+  const { t } = useTranslation('home')
+  const { t: ts } = useTranslation('message')
+
   const {
     handleSubmit,
     register,
     setError,
     formState: { errors }
   } = useForm<FormData>({
-    resolver: yupResolver(registerSchema)
+    resolver: yupResolver(registerSchema(ts))
   })
 
   const { setIsAuthenticated, setProfile } = React.useContext(AppContext)
@@ -73,20 +84,20 @@ export default function Register() {
   return (
     <div className='bg-orange'>
       <Helmet>
-        <title>Đăng ký | Shopee Clone</title>
-        <meta name='description' content='Đăng ký vào dự án Shopee Clone' />
+        <title>{t('register.title')}</title>
+        <meta name='description' content={t('login.content')} />
       </Helmet>
       <div className='container'>
         <div className='grid grid-cols-1 py-12 lg:grid-cols-5 lg:py-32 lg:pr-10'>
           <div className='lg:col-span-2 lg:col-start-4'>
             <form className='rounded bg-white p-10 shadow-sm' onSubmit={onSubmit} noValidate>
-              <div className='text-2xl'>Đăng ký</div>
+              <div className='text-2xl'>{t('register.register')}</div>
               <Input
                 className='mt-8'
                 name='email'
                 type='email'
                 register={register}
-                placeholder='Email'
+                placeholder={t('register.email')}
                 errorMessage={errors.email?.message}
               />
               <Input
@@ -95,7 +106,7 @@ export default function Register() {
                 type='password'
                 register={register}
                 autoComplete='on'
-                placeholder='Password'
+                placeholder={t('register.password')}
                 errorMessage={errors.password?.message}
               />
               <Input
@@ -103,7 +114,7 @@ export default function Register() {
                 name='confirm_password'
                 type='password'
                 register={register}
-                placeholder='Confirm password'
+                placeholder={t('register.confirm_password')}
                 autoComplete='on'
                 errorMessage={errors.confirm_password?.message}
               />
@@ -114,13 +125,13 @@ export default function Register() {
                   isLoading={registerAccountMutation.isPending}
                   disabled={registerAccountMutation.isPending}
                 >
-                  Đăng nhập
+                  {t('register.login')}
                 </Button>
               </div>
               <div className='mt-8 flex items-center justify-center'>
-                <span className='text-gray-400'>Bạn đã có tài khoản?</span>
+                <span className='text-gray-400'>{t('register.have_an_acc')}</span>
                 <Link className='ml-1 text-red-400' to={path.login}>
-                  Đăng nhập
+                  {t('register.login')}
                 </Link>
               </div>
             </form>

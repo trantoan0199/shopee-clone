@@ -91,7 +91,7 @@ export class Http {
                   }, 10000)
                 })
             return this.refreshTokenRequest.then((access_token) => {
-              // Nghĩa là chúng ta tiếp tục gọi lại request cũ vừa bị lỗi
+              // Nghĩa là tiếp tục gọi lại request cũ vừa bị lỗi
               return this.instance({
                 ...config,
                 headers: { ...error.response?.config.headers, authorization: access_token }

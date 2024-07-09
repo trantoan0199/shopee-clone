@@ -14,8 +14,10 @@ import { Product as ProductType, ProductListConfig } from 'src/types/product.typ
 import { formatCurrency, formatNumberToSocialStyle, getIdFromNameId, rateSale } from 'src/utils/utils'
 import Product from '../ProductList/components/Product'
 import { convert } from 'html-to-text'
+import { useTranslation } from 'react-i18next'
 
 export default function ProductDetail() {
+  const { t } = useTranslation('home')
   const [buyCount, setBuyCount] = React.useState(1)
   const { nameId } = useParams()
   const navigate = useNavigate()
@@ -74,10 +76,10 @@ export default function ProductDetail() {
     const rect = event.currentTarget.getBoundingClientRect()
     const image = imageRef.current as HTMLImageElement
     const { naturalHeight, naturalWidth } = image
-    // Cách 1: Lấy offsetX, offsetY đơn giản khi chúng ta đã xử lý được bubble event và phải thêm pointer-events-none vào className của element con
+    // Cách 1: Lấy offsetX, offsetY đơn giản khi đã xử lý được bubble event và phải thêm pointer-events-none vào className của element con
     const { offsetX, offsetY } = event.nativeEvent
 
-    // Cách 2: Lấy offsetX, offsetY khi chúng ta không xử lý được bubble event
+    // Cách 2: Lấy offsetX, offsetY khi không xử lý được bubble event
     // const offsetX = event.pageX - (rect.x + window.scrollX)
     // const offsetY = event.pageY - (rect.y + window.scrollY)
 
@@ -210,18 +212,18 @@ export default function ProductDetail() {
                 <div className='mx-4 h-4 w-[1px] bg-gray-300'></div>
                 <div>
                   <span>{formatNumberToSocialStyle(product.sold)}</span>
-                  <span className='ml-1 text-gray-500'>Đã bán</span>
+                  <span className='ml-1 text-gray-500'>{t('product detail.sold')}</span>
                 </div>
               </div>
               <div className='mt-8 flex items-center bg-gray-50 px-5 py-4'>
                 <div className='text-gray-500 line-through'>₫{formatCurrency(product.price_before_discount)}</div>
                 <div className='ml-3 text-3xl font-medium text-orange'>₫{formatCurrency(product.price)}</div>
                 <div className='ml-4 rounded-sm bg-orange px-1 py-[2px] text-xs font-semibold uppercase text-white'>
-                  {rateSale(product.price_before_discount, product.price)} giảm
+                  {rateSale(product.price_before_discount, product.price)} {t('product detail.off')}
                 </div>
               </div>
               <div className='mt-8 flex items-center'>
-                <div className='capitalize text-gray-500'>Số lượng</div>
+                <div className='capitalize text-gray-500'>{t('product detail.quantity')}</div>
                 <QuantityController
                   onDecrease={handleBuyCount}
                   onIncrease={handleBuyCount}
@@ -229,7 +231,9 @@ export default function ProductDetail() {
                   value={buyCount}
                   max={product.quantity}
                 />
-                <div className='ml-6 text-sm text-gray-500'>{product.quantity} sản phẩm có sẵn</div>
+                <div className='ml-6 text-sm text-gray-500'>
+                  {product.quantity} {t('product detail.available')}
+                </div>
               </div>
               <div className='mt-8 flex items-center'>
                 <button
@@ -250,13 +254,13 @@ export default function ProductDetail() {
                       d='M2.25 3h1.386c.51 0 .955.343 1.087.835l.383 1.437M7.5 14.25a3 3 0 0 0-3 3h15.75m-12.75-3h11.218c1.121-2.3 2.1-4.684 2.924-7.138a60.114 60.114 0 0 0-16.536-1.84M7.5 14.25 5.106 5.272M6 20.25a.75.75 0 1 1-1.5 0 .75.75 0 0 1 1.5 0Zm12.75 0a.75.75 0 1 1-1.5 0 .75.75 0 0 1 1.5 0Z'
                     />
                   </svg>
-                  Thêm vào giỏ hàng
+                  {t('product detail.add cart')}
                 </button>
                 <button
                   onClick={buyNow}
                   className='ml-4 h-12 flex justify-center items-center capitalize text-white bg-orange rounded-sm min-w-[5rem] shadow-sm outline-none px-5 hover:bg-orange/90'
                 >
-                  Mua ngay
+                  {t('product detail.buy now')}
                 </button>
               </div>
             </div>
@@ -266,7 +270,7 @@ export default function ProductDetail() {
       <div className='mt-8'>
         <div className='container'>
           <div className='mt-8 bg-white p-4 shadow'>
-            <div className='rounded p-4 capitalize text-slate-700 text-lg bg-gray-50'>Mô tả sản phẩm</div>
+            <div className='rounded p-4 capitalize text-slate-700 text-lg bg-gray-50'>{t('product detail.description')}</div>
             <div className='mx-4 mt-12 mb-4 text-sm leading-loose'>
               <div
                 dangerouslySetInnerHTML={{
@@ -279,7 +283,7 @@ export default function ProductDetail() {
       </div>
       <div className='mt-8'>
         <div className='container'>
-          <div className='uppercase text-gray-400'>Có thể bạn cũng thích</div>
+          <div className='uppercase text-gray-400'>{t('product detail.you may also like')}</div>
           {productsData && (
             <div className='mt-4 grid grid-cols-2 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6 gap-3'>
               {productsData.data.data.products?.map((product) => (

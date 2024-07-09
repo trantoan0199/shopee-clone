@@ -1,6 +1,60 @@
 {
-  "aside filter": {
-    "all categories": "Tất cả danh mục",
-    "filter search": "Bộ lọc tìm kiếm"
+  "login": {
+    "title": "Đăng nhập | Shopee Clone",
+    "content": "Đăng nhập vào dự án Shopee Clone",
+    "login": "Đăng nhập",
+    "no_acc": "Bạn mới sử dụng Shopee?",
+    "register": "Đăng ký"
+  },
+  "register": {
+    "title": "Đăng ký | Shopee Clone",
+    "content": "Đăng ký vào dự án Shopee Clone",
+    "register": "Đăng ký",
+    "login": "Đăng nhập",
+    "have_an_acc": "Có một tài khoản?",
+    "email": "Email",
+    "password": "Mật khẩu",
+    "confirm_password": "Xác nhận lại mật khẩu"
+  },
+  "profile": {
+    "title": "Hồ sơ của tôi | Shopee Clone",
+    "content": "Trang hồ sơ cá nhân của dự án Shopee Clone",
+    "profile": "Hồ Sơ Của Tôi",
+    "text": "Quản lý thông tin hồ sơ để bảo mật tài khoản",
+    "email": "Email",
+    "name": "Tên",
+    "phoneNumber": "Số điện thoại",
+    "address": "Địa chỉ",
+    "save": "Lưu",
+    "capacity": "Dụng lượng file tối đa 1 MB",
+    "format": "Định dạng: .JPEG, .PNG"
+  },
+  "history": {
+    "all": "Tất cả",
+    "waitForConfirmation": "Chờ xác nhận",
+    "waitForGetting": "Chờ lấy hàng",
+    "inProgress": "Đang giao",
+    "delivered": "Đã giao",
+    "cancelled": "Đã huỷ",
+    "total": "Tổng giá tiền"
+  },
+  "changePassword": {
+    "changePassword": "Đổi mật khẩu",
+    "text": "Quản lý thông tin hồ sơ để bảo mật tài khoản",
+    "password": "Mật khẩu cũ",
+    "newPassword": "Mật khẩu mới",
+    "confirmPassword": "Nhập lại mật khẩu",
+    "save": "Lưu"
+  },
+  "product detail": {
+    "sold": "Đã bán",
+    "off": "giảm",
+    "quantity": "Số lượng",
+    "available": "sản phẩm có sẵn",
+    "add cart": "Thêm vào giỏ hàng",
+    "buy now": "Mua ngay",
+    "description": "Mô tả sản phẩm",
+    "you may also like": "Có thể bạn cũng thích"
+
   }
 }

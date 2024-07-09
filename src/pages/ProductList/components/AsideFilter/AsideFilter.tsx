@@ -14,6 +14,7 @@ import { Category } from 'src/types/category.type'
 import { NoUndefinedField } from 'src/types/utils.type'
 import { schema, Schema } from 'src/utils/rules'
 import { useTranslation } from 'react-i18next'
+import * as yup from 'yup'
 
 interface Props {
   categories: Category[]
@@ -22,26 +23,33 @@ interface Props {
 
 type FormData = NoUndefinedField<Pick<Schema, 'price_min' | 'price_max'>>
 
-const priceSchema = schema.pick(['price_min', 'price_max'])
+// const priceSchema = schema.pick(['price_min', 'price_max'])
+const priceSchema = (t: ReturnType<typeof useTranslation>['t']) =>
+  yup.object().shape({
+    price_min: schema(t).fields.price_min as yup.StringSchema<string>,
+    price_max: schema(t).fields.price_max as yup.StringSchema<string>
+  })
 
 export default function AsideFilter({ queryConfig, categories }: Props) {
   const { category } = queryConfig
 
   const navigate = useNavigate()
 
-  const { t } = useTranslation('home')
+  const { t: ts } = useTranslation('message')
+  const { t } = useTranslation('product')
 
   const {
     control,
     handleSubmit,
     trigger,
+    reset,
     formState: { errors }
   } = useForm<FormData>({
     defaultValues: {
       price_min: '',
       price_max: ''
     },
-    resolver: yupResolver(priceSchema),
+    resolver: yupResolver(priceSchema(ts)),
     shouldFocusError: false
   })
 
@@ -57,6 +65,7 @@ export default function AsideFilter({ queryConfig, categories }: Props) {
   })
 
   const handleRemoveAll = () => {
+    reset()
     navigate({
       pathname: path.home,
       search: createSearchParams(omit(queryConfig, ['price_max', 'price_min', 'category', 'rating_filter'])).toString()
@@ -138,7 +147,7 @@ export default function AsideFilter({ queryConfig, categories }: Props) {
       </Link>
       <div className='bg-gray-300 h-[1px] my-4'></div>
       <div className='my-5'>
-        <div>Khoảng giá</div>
+        <div>{t('aside filter.range')}</div>
         <form className='mt-2' onSubmit={onSubmit}>
           <div className='flex items-start'>
             {/* <Controller
@@ -168,7 +177,7 @@ export default function AsideFilter({ queryConfig, categories }: Props) {
               type='number'
               className='grow'
               classNameInput='p-1 w-full outline-none border border-gray-300 hover:border-gray-500 rounded-sm shadow-sm'
-              placeholder='₫ TỪ'
+              placeholder={t('aside filter.price min')}
               classNameError='hidden'
               onChange={() => {
                 trigger('price_max')
@@ -185,7 +194,7 @@ export default function AsideFilter({ queryConfig, categories }: Props) {
                     type='text'
                     className='grow'
                     classNameInput='p-1 w-full outline-none border border-gray-300 hover:border-gray-500 rounded-sm shadow-sm'
-                    placeholder='₫ ĐẾN'
+                    placeholder={t('aside filter.price max')}
                     classNameError='hidden'
                     onChange={(event) => {
                       field.onChange(event)
@@ -198,7 +207,7 @@ export default function AsideFilter({ queryConfig, categories }: Props) {
           </div>
           <div className='mt-1 text-red-400 text-center min-h-[1.25rem] text-sm'>{errors.price_max?.message}</div>
           <Button className='w-full p-2 uppercase bg-orange text-white text-sm hover:bg-orange/80 flex justify-center items-center'>
-            Áp dụng
+           {t('aside filter.apply')}
           </Button>
         </form>
       </div>
@@ -209,7 +218,7 @@ export default function AsideFilter({ queryConfig, categories }: Props) {
         onClick={handleRemoveAll}
         className='w-full p-2 uppercase bg-orange text-white text-sm hover:bg-orange/80 flex justify-center items-center'
       >
-        Xoá tất cả
+        {t('aside filter.delete')}
       </Button>
     </div>
   )

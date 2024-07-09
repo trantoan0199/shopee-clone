@@ -1,6 +1,59 @@
 {
-  "aside filter": {
-    "all categories": "All categories",
-    "filter search": "Filter"
+  "login": {
+    "title": "Login | Shopee Clone",
+    "content": "Log in to the Shopee Clone project",
+    "login": "Log In",
+    "no_acc": "New to Shopee?",
+    "register": "Sign Up"
+  },
+  "register": {
+    "title": "Sign up | Shopee Clone",
+    "content": "Sign up to the Shopee Clone project",
+    "register": "Sign up",
+    "login": "Log in",
+    "have_an_acc": "Have an account?",
+    "email": "Email",
+    "password": "Password",
+    "confirm_password": "Confirm password"
+  },
+  "profile": {
+    "title": "My Profile | Shopee Clone",
+    "content": "Personal profile page for the Shopee Clone project",
+    "profile": "My Profile",
+    "text": "Manage profile information to secure your account",
+    "email": "Email",
+    "name": "Name",
+    "phoneNumber": "Phone Number",
+    "address": "Address",
+    "save": "Save",
+    "capacity": "Maximum file size 1 MB",
+    "format": "Format: .JPEG, .PNG"
+  },
+  "history": {
+    "all": "All",
+    "waitForConfirmation": "Waiting for Confirmation",
+    "waitForGetting": "Waiting for Pickup",
+    "inProgress": "In Progress",
+    "delivered": "Delivered",
+    "cancelled": "Cancelled",
+    "total": "Total Price"
+  },
+  "changePassword": {
+    "changePassword": "Change Password",
+    "text": "Manage profile information to secure your account",
+    "password": "Old Password",
+    "newPassword": "New Password",
+    "confirmPassword": "Confirm New Password",
+    "save": "Save"
+  },
+  "product detail": {
+    "sold": "Sold",
+    "off": "Off",
+    "quantity": "Quantity",
+    "available": "Available",
+    "add cart": "Add to Cart",
+    "buy now": "Buy Now",
+    "description": "Product description",
+    "you may also like": "You May Also Like"
   }
 }

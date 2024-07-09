@@ -10,15 +10,18 @@ import noproduct from 'src/assets/images/no-product.png'
 import { formatCurrency } from 'src/utils/utils'
 import NavHeader from '../NavHeader'
 import useSearchProducts from 'src/hooks/useSearchProducts'
+import { useTranslation } from 'react-i18next'
 
 const MAX_PURCHASES = 5
 
 export default function Header() {
   const { isAuthenticated } = React.useContext(AppContext)
 
+  const { t } = useTranslation('product')
+
   const { onSubmitSearch, register } = useSearchProducts()
 
-  // Khi chúng ta chuyển trang thì Header chỉ bị re-render
+  // Khi chuyển trang thì Header chỉ bị re-render
   // chứ không bị unmount - mounting again
   // (Tất nhiên là trừ trường hợp bị logout rồi nhảy sang RegisterLayout rồi nhảy vào lại)
   // Nêu các query này sẽ không bị inactive => Không bị gọi lại => Không cần thiết phải set stale: Infinity
@@ -46,7 +49,7 @@ export default function Header() {
             <div className='bg-white rounded-sm p-1 flex'>
               <input
                 type='text'
-                placeholder='Free Ship Đơn từ 0Đ'
+                placeholder={t('header.search')}
                 className='text-black outline-none border-none px-3 py-2 flex-grow bg-transparent'
                 {...register('name')}
               />
@@ -74,7 +77,7 @@ export default function Header() {
                 <div className='bg-white relative shadow-md rounded-none border border-gray-200 max-w-[400px] text-sm'>
                   {purchasesInCart && purchasesInCart.length > 0 ? (
                     <div className='p-2'>
-                      <div className='text-gray-400 capitalize'>Sản phẩm mới thêm</div>
+                      <div className='text-gray-400 capitalize'>{t('header.product new add')}</div>
                       <div className='mt-5'>
                         {purchasesInCart.slice(0, MAX_PURCHASES).map((purchase) => (
                           <div key={purchase._id} className='mt-2 py-2 flex hover:bg-gray-500'>
@@ -96,21 +99,21 @@ export default function Header() {
                       </div>
                       <div className='mt-6 flex items-center justify-between'>
                         <div className='capitalize text-sm text-gray-500'>
-                          {purchasesInCart.length > MAX_PURCHASES ? purchasesInCart.length - MAX_PURCHASES : ' '} Thêm
-                          vào giỏ hàng
+                          {purchasesInCart.length > MAX_PURCHASES ? purchasesInCart.length - MAX_PURCHASES : ' '}{' '}
+                          {t('header.purchaseInCart')}
                         </div>
                         <Link
                           to={path.cart}
                           className='bg-orange capitalize hover:bg-opacity-90 px-4 py-2 rounded-sm text-white'
                         >
-                          Xem giỏ hàng
+                          {t('header.viewCart')}
                         </Link>
                       </div>
                     </div>
                   ) : (
                     <div className='flex justify-center items-center flex-col h-[300px] w-[300px] p-2'>
                       <img src={noproduct} alt='no-product' className='h-24 w-24' />
-                      <div className='mt-3 capitalize'>Chưa có sản phẩm</div>
+                      <div className='mt-3 capitalize'>{t('header.no product')}</div>
                     </div>
                   )}
                 </div>
