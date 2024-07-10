@@ -7,6 +7,7 @@ import Pagination from 'src/components/Pagination'
 import useQueryConfig from 'src/hooks/useQueryConfig'
 import { ProductListConfig } from 'src/types/product.type'
 import AsideFilter from './components/AsideFilter'
+import Loading from './components/Loading'
 import Product from './components/Product'
 import SortProductList from './components/SortProductList'
 
@@ -18,8 +19,8 @@ export default function ProductList() {
     queryFn: () => {
       return productApi.getProductList(queryConfig as ProductListConfig)
     },
-    placeholderData: keepPreviousData,
-    staleTime: 3 * 60 * 1000
+    placeholderData: keepPreviousData
+    // staleTime: 3 * 60 * 1000
   })
 
   const { data: categoriesData } = useQuery({
@@ -54,6 +55,7 @@ export default function ProductList() {
             </div>
           </div>
         )}
+        {!productsData && <Loading />}
       </div>
     </div>
   )

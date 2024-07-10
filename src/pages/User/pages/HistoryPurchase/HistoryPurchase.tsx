@@ -9,6 +9,7 @@ import { purchasesStatus } from 'src/constants/purchase'
 import useQueryParams from 'src/hooks/useQueryParams'
 import { PurchaseStatus } from 'src/types/purchase.type'
 import { formatCurrency, generateNameId } from 'src/utils/utils'
+import Loading from '../../components/Loading'
 
 enum PurchaseStatusKeys {
   all = 'all',
@@ -49,7 +50,7 @@ export default function HistoryPurchase() {
   const queryParams: { status?: string } = useQueryParams()
   const { t } = useTranslation('home')
   const status: number = Number(queryParams.status) || purchasesStatus.all
-  const { data: purchaseInCartData } = useQuery({
+  const { data: purchaseInCartData, isLoading } = useQuery({
     queryKey: ['purchase', status],
     queryFn: () => purchaseApi.getPurchases({ status: status as PurchaseStatus })
   })
@@ -81,6 +82,7 @@ export default function HistoryPurchase() {
       <div className='overflow-x-auto'>
         <div className='min-w-[700px]'>
           <div className='sticky top-0 flex rounded-t-sm shadow-sm'>{purchaseTabsLink}</div>
+          {isLoading && <Loading />}
           <div>
             {purchasesInCart?.map((purchase) => (
               <div key={purchase._id} className='mt-4 rounded-sm border-black/10 bg-white p-6 text-gray-800 shadow-sm'>

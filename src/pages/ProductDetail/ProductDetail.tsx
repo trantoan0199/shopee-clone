@@ -15,6 +15,7 @@ import { formatCurrency, formatNumberToSocialStyle, getIdFromNameId, rateSale } 
 import Product from '../ProductList/components/Product'
 import { convert } from 'html-to-text'
 import { useTranslation } from 'react-i18next'
+import Loading from './components/Loading'
 
 export default function ProductDetail() {
   const { t } = useTranslation('home')
@@ -122,7 +123,7 @@ export default function ProductDetail() {
     })
   }
 
-  if (!product) return null
+  if (!product) return <Loading />
   return (
     <div className='bg-gray-200 py-6'>
       <Helmet>

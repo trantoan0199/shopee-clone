@@ -14,10 +14,15 @@ import keyBy from 'lodash/keyBy'
 import { toast } from 'react-toastify'
 import { AppContext } from 'src/contexts/auth.context'
 import { Helmet } from 'react-helmet-async'
+import Loading from './Components/Loading'
 
 export default function Cart() {
   const { extendedPurchases, setExtendedPurchases } = React.useContext(AppContext)
-  const { data: purchasesInCartData, refetch } = useQuery({
+  const {
+    data: purchasesInCartData,
+    refetch,
+    isLoading
+  } = useQuery({
     queryKey: ['purchases', { status: purchasesStatus.inCart }],
     queryFn: () => purchaseApi.getPurchases({ status: purchasesStatus.inCart })
   })
@@ -156,6 +161,7 @@ export default function Cart() {
         <meta name='description' content='Trang giỏ hàng dự án Shopee Clone' />
       </Helmet>
       <div className='container'>
+        {isLoading && <Loading />}
         {extendedPurchases.length > 0 ? (
           <>
             <div className='overflow-auto'>
