@@ -55,6 +55,22 @@
     "buy now": "Mua ngay",
     "description": "Mô tả sản phẩm",
     "you may also like": "Có thể bạn cũng thích"
-
+  },
+  "cart": {
+    "title": "Giỏ hàng | Shopee Clone",
+    "content": "Trang giỏ hàng dự án Shopee Clone",
+    "product": "Sản phẩm",
+    "unit_price": "Đơn giá",
+    "quantity": "Số lượng",
+    "total_price": "Thành tiền",
+    "action": "Thao tác",
+    "delete": "Xoá",
+    "select_all": "Chọn tất cả",
+    "total_payment": "Tổng thanh toán",
+    "product_count": "sản phẩm",
+    "saving": "Tiết kiệm",
+    "buy": "Mua hàng",
+    "cart_empty": "Giỏ hàng của bạn còn trống",
+    "buy_now": "Mua ngay"
   }
 }

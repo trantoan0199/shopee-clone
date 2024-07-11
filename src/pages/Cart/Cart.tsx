@@ -15,8 +15,11 @@ import { toast } from 'react-toastify'
 import { AppContext } from 'src/contexts/auth.context'
 import { Helmet } from 'react-helmet-async'
 import Loading from './Components/Loading'
+import debounce from 'lodash/debounce'
+import { useTranslation } from 'react-i18next'
 
 export default function Cart() {
+  const {t} = useTranslation('home')
   const { extendedPurchases, setExtendedPurchases } = React.useContext(AppContext)
   const {
     data: purchasesInCartData,
@@ -128,9 +131,27 @@ export default function Cart() {
       setExtendedPurchases(
         produce((draft) => {
           draft[purchaseIndex].disabled = true
+          draft[purchaseIndex].buy_count = value
         })
       )
-      updatePurchaseMutation.mutate({ product_id: purchase.product._id, buy_count: value })
+
+      debounce(
+        () =>
+          updatePurchaseMutation.mutate(
+            { product_id: purchase.product._id, buy_count: value },
+            {
+              onError: () => {
+                setExtendedPurchases(
+                  produce((draft) => {
+                    draft[purchaseIndex].disabled = false
+                    draft[purchaseIndex].buy_count = value
+                  })
+                )
+              }
+            }
+          ),
+        100
+      )
     }
   }
 
@@ -157,8 +178,8 @@ export default function Cart() {
   return (
     <div className='bg-neutral-100 py-16'>
       <Helmet>
-        <title>Giỏ hàng | Shopee Clone</title>
-        <meta name='description' content='Trang giỏ hàng dự án Shopee Clone' />
+        <title>{t('cart.title')}</title>
+        <meta name='description' content={t('cart.content')} />
       </Helmet>
       <div className='container'>
         {isLoading && <Loading />}
@@ -177,15 +198,15 @@ export default function Cart() {
                           onChange={handleCheckAll}
                         />
                       </div>
-                      <div className='flex-grow text-black'>Sản phẩm</div>
+                      <div className='flex-grow text-black'>{t('cart.product')}</div>
                     </div>
                   </div>
                   <div className='col-span-6'>
                     <div className='grid grid-cols-5 text-center'>
-                      <div className='col-span-2'>Đơn giá</div>
-                      <div className='col-span-1'>Số lượng</div>
-                      <div className='col-span-1'>Thành tiền</div>
-                      <div className='col-span-1'>Thao tác</div>
+                      <div className='col-span-2'>{t('cart.unit_price')}</div>
+                      <div className='col-span-1'>{t('cart.quantity')}</div>
+                      <div className='col-span-1'>{t('cart.total_price')}</div>
+                      <div className='col-span-1'>{t('cart.action')}</div>
                     </div>
                   </div>
                 </div>
@@ -291,20 +312,20 @@ export default function Cart() {
                   />
                 </div>
                 <button className='mx-3 border-none bg-none' onClick={handleCheckAll}>
-                  Chọn tất cả ({extendedPurchases.length})
+                {t('cart.select_all')} ({extendedPurchases.length})
                 </button>
                 <button onClick={handleDeleteManyPurchase} className='mx-3 border-none bg-none'>
-                  Xóa
+                {t('cart.delete')}
                 </button>
               </div>
               <div className='mt-5 flex flex-col sm:ml-auto sm:mt-0 sm:flex-row sm:items-center'>
                 <div>
                   <div className='flex items-center sm:justify-end'>
-                    <div>Tổng thanh toán ({checkedPurchaseCount} sản phẩm):</div>
+                    <div>{t('cart.total_payment')} ({checkedPurchaseCount} {t('cart.product_count')}):</div>
                     <div className='ml-2 text-2xl text-orange'>₫{formatCurrency(totalCheckedPurchasePrice)}</div>
                   </div>
                   <div className='flex items-center text-sm sm:justify-end'>
-                    <div className='text-gray-500'>Tiết kiệm</div>
+                    <div className='text-gray-500'>{t('cart.saving')}</div>
                     <div className='ml-6 text-orange'>₫{formatCurrency(totalCheckedPurchaseSavingPrice)}</div>
                   </div>
                 </div>
@@ -313,7 +334,7 @@ export default function Cart() {
                   disabled={buyProductMutation.isPending}
                   className='mt-5 flex h-10 w-52 items-center justify-center bg-red-500 text-sm uppercase text-white hover:bg-red-600 sm:ml-4 sm:mt-0'
                 >
-                  Mua hàng
+                  {t('cart.buy')}
                 </Button>
               </div>
             </div>
@@ -321,13 +342,13 @@ export default function Cart() {
         ) : (
           <div className='text-center'>
             <img src={noproduct} alt='no purchase' className='mx-auto h-24 w-24' />
-            <div className='mt-5 font-bold text-gray-400'>Giỏ hàng của bạn còn trống</div>
+            <div className='mt-5 font-bold text-gray-400'>{t('cart.cart_empty')}</div>
             <div className='mt-5 text-center'>
               <Link
                 to={path.home}
                 className=' rounded-sm bg-orange px-10 py-2  uppercase text-white transition-all hover:bg-orange/80'
               >
-                Mua ngay
+                {t('cart.buy_now')}
               </Link>
             </div>
           </div>

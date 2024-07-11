@@ -55,5 +55,22 @@
     "buy now": "Buy Now",
     "description": "Product description",
     "you may also like": "You May Also Like"
+  },
+  "cart": {
+    "title": "Cart | Shopee Clone",
+    "content": "Shopping cart page of the Shopee Clone project",
+    "product": "Product",
+    "unit_price": "Unit Price",
+    "quantity": "Quantity",
+    "total_price": "Total Price",
+    "action": "Action",
+    "delete": "Delete",
+    "select_all": "Select All",
+    "total_payment": "Total Payment",
+    "product_count": "products",
+    "saving": "Saving",
+    "buy": "Buy",
+    "cart_empty": "Your cart is empty",
+    "buy_now": "Buy Now"
   }
 }
