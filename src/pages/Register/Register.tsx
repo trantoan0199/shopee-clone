@@ -14,7 +14,7 @@ import Button from 'src/components/Button'
 import path from 'src/constants/path'
 import { Helmet } from 'react-helmet-async'
 import { useTranslation } from 'react-i18next'
-import * as yup from 'yup';
+import * as yup from 'yup'
 
 type FormData = Pick<Schema, 'email' | 'password' | 'confirm_password'>
 // const registerSchema = schema.pick(['email', 'password', 'confirm_password'])
@@ -22,8 +22,8 @@ const registerSchema = (t: ReturnType<typeof useTranslation>['t']) =>
   yup.object().shape({
     email: schema(t).fields.email as yup.StringSchema<string>,
     password: schema(t).fields.password as yup.StringSchema<string>,
-    confirm_password: schema(t).fields.confirm_password as yup.StringSchema<string>,
-  });
+    confirm_password: schema(t).fields.confirm_password as yup.StringSchema<string>
+  })
 
 export default function Register() {
   const { t } = useTranslation('home')
@@ -64,18 +64,6 @@ export default function Register() {
               })
             })
           }
-          // if (formError?.email) {
-          //   setError('email', {
-          //     message: formError.email,
-          //     type: 'Serrer'
-          //   })
-          // }
-          // if (formError?.password) {
-          //   setError('password', {
-          //     message: formError.password,
-          //     type: 'Serrer'
-          //   })
-          // }
         }
       }
     })

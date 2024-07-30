@@ -19,7 +19,7 @@ import debounce from 'lodash/debounce'
 import { useTranslation } from 'react-i18next'
 
 export default function Cart() {
-  const {t} = useTranslation('home')
+  const { t } = useTranslation('home')
   const { extendedPurchases, setExtendedPurchases } = React.useContext(AppContext)
   const {
     data: purchasesInCartData,
@@ -125,9 +125,12 @@ export default function Cart() {
     )
   }
 
+  const debouncedUpdatePurchase = debounce((updateFn) => updateFn(), 300);
+
   const handleQuantity = (purchaseIndex: number, value: number, enable: boolean) => {
     if (enable) {
       const purchase = extendedPurchases[purchaseIndex]
+
       setExtendedPurchases(
         produce((draft) => {
           draft[purchaseIndex].disabled = true
@@ -135,23 +138,23 @@ export default function Cart() {
         })
       )
 
-      debounce(
-        () =>
-          updatePurchaseMutation.mutate(
-            { product_id: purchase.product._id, buy_count: value },
-            {
-              onError: () => {
-                setExtendedPurchases(
-                  produce((draft) => {
-                    draft[purchaseIndex].disabled = false
-                    draft[purchaseIndex].buy_count = value
-                  })
-                )
-              }
+      const previousBuyCount = purchase.buy_count;
+
+      debouncedUpdatePurchase(() =>
+        updatePurchaseMutation.mutate(
+          { product_id: purchase.product._id, buy_count: value },
+          {
+            onError: () => {
+              setExtendedPurchases(
+                produce((draft) => {
+                  draft[purchaseIndex].buy_count = previousBuyCount;
+                  draft[purchaseIndex].disabled = false;
+                })
+              );
             }
-          ),
-        100
-      )
+          }
+        )
+      );
     }
   }
 
@@ -312,16 +315,18 @@ export default function Cart() {
                   />
                 </div>
                 <button className='mx-3 border-none bg-none' onClick={handleCheckAll}>
-                {t('cart.select_all')} ({extendedPurchases.length})
+                  {t('cart.select_all')} ({extendedPurchases.length})
                 </button>
                 <button onClick={handleDeleteManyPurchase} className='mx-3 border-none bg-none'>
-                {t('cart.delete')}
+                  {t('cart.delete')}
                 </button>
               </div>
               <div className='mt-5 flex flex-col sm:ml-auto sm:mt-0 sm:flex-row sm:items-center'>
                 <div>
                   <div className='flex items-center sm:justify-end'>
-                    <div>{t('cart.total_payment')} ({checkedPurchaseCount} {t('cart.product_count')}):</div>
+                    <div>
+                      {t('cart.total_payment')} ({checkedPurchaseCount} {t('cart.product_count')}):
+                    </div>
                     <div className='ml-2 text-2xl text-orange'>₫{formatCurrency(totalCheckedPurchasePrice)}</div>
                   </div>
                   <div className='flex items-center text-sm sm:justify-end'>

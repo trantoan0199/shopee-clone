@@ -31,11 +31,8 @@ function InputV2<
 
     const numberCondition = type === 'number' && (/^\d+$/.test(valueFromInput) || valueFromInput === '')
     if (numberCondition || type !== 'number') {
-      // Cập nhật localValue state
       setLocalValue(valueFromInput)
-      // Gọi field.onChange để cập nhật lại state React Hook Form
       field.onChange(event)
-      // Thực thi onChange callback từ bên ngoài truyền vào props
       onChange && onChange(event)
     }
   }
@@ -49,20 +46,3 @@ function InputV2<
 }
 
 export default InputV2
-
-// type Gen<TFunc> = {
-//   getName: TFunc
-// }
-
-// function Hexa<TFunc extends () => string, TLastName extends ReturnType<TFunc>>(_props: {
-//   person: Gen<TFunc>
-//   lastName: TLastName
-// }) {
-//   return null
-// }
-
-// const handleGetName: () => 'toan' = () => 'toan'
-
-// function App() {
-//   return <Hexa person={{ getName: handleGetName }} lastName='toan' />
-// }

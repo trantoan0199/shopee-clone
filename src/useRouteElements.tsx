@@ -5,16 +5,7 @@ import { AppContext } from './contexts/auth.context'
 import CartLayout from './layouts/CartLayout'
 import MainLayout from './layouts/MainLayout'
 import RegisterLayout from './layouts/RegisterLayout'
-// import Cart from './pages/Cart'
-// import Login from './pages/Login'
-// import NotFound from './pages/NotFound'
-// import ProductDetail from './pages/ProductDetail'
-// import ProductList from './pages/ProductList/ProductList'
-// import Register from './pages/Register/Register'
 import UserLayout from './pages/User/layouts'
-// import ChangePassword from './pages/User/pages/ChangePassword'
-// import HistoryPurchase from './pages/User/pages/HistoryPurchase'
-// import Profile from './pages/User/pages/Profile'
 
 const Login = React.lazy(() => import('./pages/Login'))
 const Cart = React.lazy(() => import('./pages/Cart'))
@@ -43,24 +34,26 @@ export default function useRouteElements() {
       element: <RejectedRoute />,
       children: [
         {
-          path: path.login,
-          element: (
-            <RegisterLayout>
-              <React.Suspense>
-                <Login />
-              </React.Suspense>
-            </RegisterLayout>
-          )
-        },
-        {
-          path: path.register,
-          element: (
-            <RegisterLayout>
-              <React.Suspense>
-                <Register />
-              </React.Suspense>
-            </RegisterLayout>
-          )
+          path: '',
+          element: <RegisterLayout />,
+          children: [
+            {
+              path: path.login,
+              element: (
+                <React.Suspense>
+                  <Login />
+                </React.Suspense>
+              )
+            },
+            {
+              path: path.register,
+              element: (
+                <React.Suspense>
+                  <Register />
+                </React.Suspense>
+              )
+            }
+          ]
         }
       ]
     },
@@ -117,35 +110,35 @@ export default function useRouteElements() {
       ]
     },
     {
-      path: path.productDetail,
-      element: (
-        <MainLayout>
-          <React.Suspense>
-            <ProductDetail />
-          </React.Suspense>
-        </MainLayout>
-      )
-    },
-    {
       path: '',
-      index: true,
-      element: (
-        <MainLayout>
-          <React.Suspense>
-            <ProductList />
-          </React.Suspense>
-        </MainLayout>
-      )
-    },
-    {
-      path: '*',
-      element: (
-        <MainLayout>
-          <React.Suspense>
-            <NotFound />
-          </React.Suspense>
-        </MainLayout>
-      )
+      element: <MainLayout />,
+      children: [
+        {
+          path: path.productDetail,
+          element: (
+            <React.Suspense>
+              <ProductDetail />
+            </React.Suspense>
+          )
+        },
+        {
+          path: '',
+          index: true,
+          element: (
+            <React.Suspense>
+              <ProductList />
+            </React.Suspense>
+          )
+        },
+        {
+          path: '*',
+          element: (
+            <React.Suspense>
+              <NotFound />
+            </React.Suspense>
+          )
+        }
+      ]
     }
   ])
   return routeElements

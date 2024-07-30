@@ -10,7 +10,6 @@ import * as yup from 'yup'
 
 type FormData = Pick<Schema, 'name'>
 
-// const nameSchema = schema.pick(['name'])
 const nameSchema = (t: ReturnType<typeof useTranslation>['t']) =>
   yup.object().shape({
     name: schema(t).fields.name as yup.StringSchema<string>

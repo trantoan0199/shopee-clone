@@ -21,10 +21,6 @@ export default function Header() {
 
   const { onSubmitSearch, register } = useSearchProducts()
 
-  // Khi chuyển trang thì Header chỉ bị re-render
-  // chứ không bị unmount - mounting again
-  // (Tất nhiên là trừ trường hợp bị logout rồi nhảy sang RegisterLayout rồi nhảy vào lại)
-  // Nêu các query này sẽ không bị inactive => Không bị gọi lại => Không cần thiết phải set stale: Infinity
   const { data: purchasesInCartData } = useQuery({
     queryKey: ['purchases', { status: purchasesStatus.inCart }],
     queryFn: () => purchaseApi.getPurchases({ status: purchasesStatus.inCart }),

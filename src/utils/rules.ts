@@ -111,7 +111,7 @@ export const schema = (t: ReturnType<typeof useTranslation>['t']) =>
   })
 
 export const userSchema = (t: ReturnType<typeof useTranslation>['t']) => {
-  const baseSchema = schema(t) // Sử dụng schema đã định nghĩa
+  const baseSchema = schema(t)
 
   const additionalSchema = yup.object().shape({
     name: yup.string().max(160, t('user.max_length', { max: 160 })),
@@ -119,9 +119,9 @@ export const userSchema = (t: ReturnType<typeof useTranslation>['t']) => {
     address: yup.string().max(160, t('user.max_length', { max: 160 })),
     avatar: yup.string().max(1000, t('user.max_length', { max: 1000 })),
     date_of_birth: yup.date().max(new Date(), t('user.date_of_birth')),
-    password: baseSchema.fields['password'] as yup.StringSchema<string>, // Kế thừa ràng buộc từ schema gốc
-    new_password: baseSchema.fields['password'] as yup.StringSchema<string>, // Kế thừa ràng buộc từ schema gốc
-    confirm_password: handleConfirmPasswordYup('new_password', t) // Xử lý confirmation password
+    password: baseSchema.fields['password'] as yup.StringSchema<string>,
+    new_password: baseSchema.fields['password'] as yup.StringSchema<string>,
+    confirm_password: handleConfirmPasswordYup('new_password', t)
   })
 
   return additionalSchema

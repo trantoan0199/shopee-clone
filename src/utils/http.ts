@@ -59,7 +59,6 @@ export class Http {
         return response
       },
       (error: AxiosError) => {
-        // Chỉ toast lỗi 422 và 401
         if (
           ![HttpStatusCode.UnprocessableEntity, HttpStatusCode.Unauthorized].includes(error.response?.status as number)
         ) {
@@ -68,30 +67,20 @@ export class Http {
           toast.error(message)
         }
 
-        // Lỗi Unauthorized (401) có rất nhiều trường hợp
-        // - Token không đúng
-        // - Không truyền token
-        // - Token hết hạn
-
-        // Kiểm tra lỗi 401
         if (isAxiosUnauthorizedError<ErrorResponse<{ name: string; message: string }>>(error)) {
           const config = error.response?.config || {}
           const url = error.response?.config.url
 
-          // Trường hợp Token hết hạn và request đó không phải là của request refresh token
-          // thì mới tiến hành gọi refresh token
           if (isAxiosExpiredTokenError(error) && url !== URL_REFRESH_TOKEN) {
             console.log('refresh token')
             this.refreshTokenRequest = this.refreshTokenRequest
               ? this.refreshTokenRequest
               : this.handleRefreshToken().finally(() => {
-                  // Giữ refreshTokenRequest trong 10s cho những request tiếp theo nếu có 401 thì dùng
                   setTimeout(() => {
                     this.refreshTokenRequest = null
                   }, 10000)
                 })
             return this.refreshTokenRequest.then((access_token) => {
-              // Nghĩa là tiếp tục gọi lại request cũ vừa bị lỗi
               return this.instance({
                 ...config,
                 headers: { ...error.response?.config.headers, authorization: access_token }
@@ -102,7 +91,6 @@ export class Http {
           clearLS()
           this.accessToken = ''
           this.refreshToken = ''
-          // toast.error(error.response?.data.data?.message || error.response?.data.message)
           toast.error('Đăng nhập để tiếp tục')
         }
         return Promise.reject(error)

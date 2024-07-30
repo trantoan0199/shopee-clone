@@ -77,12 +77,7 @@ export default function ProductDetail() {
     const rect = event.currentTarget.getBoundingClientRect()
     const image = imageRef.current as HTMLImageElement
     const { naturalHeight, naturalWidth } = image
-    // Cách 1: Lấy offsetX, offsetY đơn giản khi đã xử lý được bubble event và phải thêm pointer-events-none vào className của element con
     const { offsetX, offsetY } = event.nativeEvent
-
-    // Cách 2: Lấy offsetX, offsetY khi không xử lý được bubble event
-    // const offsetX = event.pageX - (rect.x + window.scrollX)
-    // const offsetY = event.pageY - (rect.y + window.scrollY)
 
     const top = offsetY * (1 - naturalHeight / rect.height)
     const left = offsetX * (1 - naturalWidth / rect.width)
@@ -271,7 +266,9 @@ export default function ProductDetail() {
       <div className='mt-8'>
         <div className='container'>
           <div className='mt-8 bg-white p-4 shadow'>
-            <div className='rounded p-4 capitalize text-slate-700 text-lg bg-gray-50'>{t('product detail.description')}</div>
+            <div className='rounded p-4 capitalize text-slate-700 text-lg bg-gray-50'>
+              {t('product detail.description')}
+            </div>
             <div className='mx-4 mt-12 mb-4 text-sm leading-loose'>
               <div
                 dangerouslySetInnerHTML={{
